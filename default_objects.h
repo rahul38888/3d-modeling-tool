@@ -1,15 +1,17 @@
-// TODO: Above include included
 
+#pragma once
+
+// TODO: Above include included
 #include "initVariables.h"
-GLfloat lineWidth=1.0;
-int coneDiv1=16;
-int coneDiv2=1;
-int circleDiv1=4;
-int circleDiv2=40;
+inline GLfloat lineWidth=1.0;
+inline int coneDiv1=16;
+inline int coneDiv2=1;
+inline int circleDiv1=4;
+inline int circleDiv2=40;
 
 
 // Draw transform tool for selected objects
-void transformer_tool(struct object * selected, char t, char d){
+inline void transformer_tool(struct object * selected, char t, char d){
     GLfloat lineHeight=1.5*cam_scale;
 
     GLfloat circleRadius=1.2*cam_scale;
@@ -204,7 +206,7 @@ void transformer_tool(struct object * selected, char t, char d){
 }
 
 // Draw 10*10 z=0 grid
-void base_grid(){
+inline void base_grid(){
         int i;
         glDisable(GL_LIGHTING);
         for(i=10;i>=-10;i--){

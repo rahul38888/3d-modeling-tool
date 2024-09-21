@@ -1702,6 +1702,7 @@ void specialKeyFunction(int key, int x, int y){
     case GLUT_KEY_LEFT:
             cam->center[0]-=0.1*scale_factor_local;
     break;
+        default: break;
     }
 
 }
@@ -1751,7 +1752,8 @@ void processShrinkMenu(int option) {
 		case NORMAL:
             glutPostRedisplay();
         break;
-	}
+        default: break;
+    }
 }
 
 void processMainMenu(int option) {
@@ -1769,6 +1771,7 @@ void processMainMenu(int option) {
             parf=!parf;
             if(parf) create_emittor(emm,emm->type);
         break;
+	    default: break;
 	}
 }
 
@@ -1804,7 +1807,8 @@ void processObjectMenu(int option) {
             new_obj=1;
             type=7;
         break;
-	}
+        default: break;
+    }
 }
 
 void processLightMenu(int option) {
@@ -1887,7 +1891,8 @@ void processLightMenu(int option) {
                 light_prop();
             }
         break;
-	}
+        default: break;
+    }
 }
 
 void fileMenuOp(int option){

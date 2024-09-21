@@ -1,7 +1,8 @@
+#pragma once
 #include "initVariables.h"
-GLint floorTexture;
+inline GLint floorTexture;
 // Draw 3d-Objects
-inline void object_draw(object *obj, object *selected, int isWired, GLenum globalSmooth){
+inline void object_draw(object *obj, const object *selected, int isWired, GLenum globalSmooth){
 
     glPushMatrix();
     glTranslatef(obj->position[0],obj->position[1],obj->position[2]);
@@ -11,7 +12,7 @@ inline void object_draw(object *obj, object *selected, int isWired, GLenum globa
     glRotated(obj->rotation[2],0,0,1);
 
     glScalef(obj->scale[0],obj->scale[1],obj->scale[2]);
-    struct materialType * material=obj->mat;
+    const struct materialType * material=obj->mat;
 
     if(obj->mat!=nullptr){
 
@@ -22,13 +23,13 @@ inline void object_draw(object *obj, object *selected, int isWired, GLenum globa
 
                 //glShadeModel(material->smooth);
 
-                GLfloat mat_ambient[] = {material->mat_ambient[0],material->mat_ambient[1],
+                const GLfloat mat_ambient[] = {material->mat_ambient[0],material->mat_ambient[1],
                                             material->mat_ambient[2],material->mat_ambient[3]};
-                GLfloat mat_diffuse[] = {material->mat_diffuse[0],material->mat_diffuse[1],
+                const GLfloat mat_diffuse[] = {material->mat_diffuse[0],material->mat_diffuse[1],
                                             material->mat_diffuse[2],material->mat_diffuse[3]};
-                GLfloat mat_specular[] = {material->mat_specular[0],material->mat_specular[1],
+                const GLfloat mat_specular[] = {material->mat_specular[0],material->mat_specular[1],
                                             material->mat_specular[2],material->mat_specular[3]};
-                GLfloat mat_shininess[] = {material->mat_shininess};
+                const GLfloat mat_shininess[] = {material->mat_shininess};
 
                 glMaterialfv(GL_FRONT, GL_AMBIENT,  mat_ambient);
                 glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
@@ -143,15 +144,15 @@ inline void object_draw(object *obj, object *selected, int isWired, GLenum globa
 }
 //1->cuboid, 2->sphere, 3->cone, 4->torus, 5->teapot
 
-GLfloat mat_ambient[] = {0.7f, 0.7f, 0.7f, 1.0f};
-GLfloat mat_diffuse[] = {0.8f, 0.8f, 0.8f, 1.0f};
-GLfloat mat_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
-GLfloat mat_shininess[] = {100.0f};
-GLfloat model[]= { 0.4f, 0.4f, 0.4f, 1.0f };
+inline GLfloat mat_ambient[] = {0.7f, 0.7f, 0.7f, 1.0f};
+inline GLfloat mat_diffuse[] = {0.8f, 0.8f, 0.8f, 1.0f};
+inline GLfloat mat_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
+inline GLfloat mat_shininess[] = {100.0f};
+inline GLfloat model[]= { 0.4f, 0.4f, 0.4f, 1.0f };
 
-GLfloat dirVector0[]={ -1.0, -1.0, -1.0, 0.0};
+inline GLfloat dirVector0[]={ -1.0, -1.0, -1.0, 0.0};
 
-inline GLenum return_light(int i){
+inline GLenum return_light(const int i){
     if(i==0)  return GL_LIGHT0;
     else if(i==1) return GL_LIGHT1;
     else if(i==2) return GL_LIGHT2;
@@ -159,23 +160,22 @@ inline GLenum return_light(int i){
     else if(i==4) return GL_LIGHT4;
     else if(i==5) return GL_LIGHT5;
     else if(i==6) return GL_LIGHT6;
-    else if(i==7) return GL_LIGHT7;
-    else return NULL;
+    else return GL_LIGHT7;
 }
 
 /*Draw Lights Function - yet not Implemented*/
 inline void draw_light(struct light *light[], GLenum globalSmooth){
 
         for(int i=0;i<8;i++){
-            GLfloat light_ambient[] = {light[i]->light_ambient[0], light[i]->light_ambient[1],
+            const GLfloat light_ambient[] = {light[i]->light_ambient[0], light[i]->light_ambient[1],
                                             light[i]->light_ambient[2], light[i]->light_ambient[3]};
-            GLfloat light_diffuse[] = {light[i]->light_diffuse[0],light[i]->light_diffuse[1],
+            const GLfloat light_diffuse[] = {light[i]->light_diffuse[0],light[i]->light_diffuse[1],
                                             light[i]->light_diffuse[2],light[i]->light_diffuse[3]};
-            GLfloat light_specular[] = {light[i]->light_specular[0],light[i]->light_specular[1],
+            const GLfloat light_specular[] = {light[i]->light_specular[0],light[i]->light_specular[1],
                                             light[i]->light_specular[2],light[i]->light_specular[3]};
-            GLfloat light_position[] = {light[i]->light_position[0],light[i]->light_position[1],
+            const GLfloat light_position[] = {light[i]->light_position[0],light[i]->light_position[1],
                                             light[i]->light_position[2],light[i]->light_position[3]};
-            GLfloat light_attenuation = light[i]->light_attenuation[1];
+            const GLfloat light_attenuation = light[i]->light_attenuation[1];
 
             glLightfv(return_light(light[i]->number), GL_AMBIENT,  light_ambient);
             glLightfv(return_light(light[i]->number), GL_DIFFUSE, light_diffuse);

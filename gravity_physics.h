@@ -1,6 +1,7 @@
-float g=9.8;
+#pragma once
+inline float g=9.8;
 
-void movement(struct particle *par, float t){
+inline void movement(struct particle *par, const float t){
     if(par->position[1]>=0){
         par->position[0]+=t*par->velocity[0];
         par->position[1]+=t*par->velocity[1]-g*t*t/2;
@@ -13,9 +14,8 @@ void movement(struct particle *par, float t){
     }
 }
 
-void update_fountain(struct emittor *emm){
-    struct particle *temp;
-    temp=emm->par;
+inline void update_fountain(const struct emittor *emm){
+    particle *temp = emm->par;
     //emm->time+=0.1f;
     for(int i=0;i<emm->parCount;i++){
         movement(temp,emm->time);
@@ -24,7 +24,7 @@ void update_fountain(struct emittor *emm){
     }
 }
 
-void render_particle(struct particle *par, struct camera *cam,int type){
+inline void render_particle(const struct particle *par, const struct camera *cam,int type){
 
     if(par->velocity[1]>=0 || (par->velocity[1]<0 && par->position[1]>=0)){
 
@@ -52,10 +52,8 @@ void render_particle(struct particle *par, struct camera *cam,int type){
     }
 }
 
-void render_fountain(struct emittor *emm, struct camera *cam){
-
-    struct particle *temp;
-    temp=emm->par;
+inline void render_fountain(const struct emittor *emm, const struct camera *cam){
+    const struct particle *temp = emm->par;
     glPushMatrix();
         for(int i=0;i<emm->parCount;i++){
             render_particle(temp,cam,emm->type);
@@ -65,15 +63,12 @@ void render_fountain(struct emittor *emm, struct camera *cam){
     update_fountain(emm);
 }
 
-GLfloat r=2.0f;
-GLfloat agl=0;
+inline GLfloat r=2.0f;
+inline GLfloat agl=0;
 
-void animation(){
-    GLfloat x, z;
-
-
-    x=r*cos(agl*M_PI/180);
-    z=r*sin(agl*M_PI/180);
+inline void animation(){
+    GLfloat x = r * cos(agl * M_PI / 180);
+    GLfloat z = r * sin(agl * M_PI / 180);
 
     glColor3f(0.6,0.5,0);
     glPushMatrix();

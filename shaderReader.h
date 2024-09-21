@@ -1,4 +1,4 @@
-
+#pragma once
 static char* readShaderFile(const char* filename){
     FILE* fp = fopen(filename,"r");
 

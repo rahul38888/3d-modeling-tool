@@ -1,20 +1,20 @@
+#pragma once
 #include <fstream>
 
-int get_fileName(char* n){
+inline int get_fileName(char* n){
     char t;
     scanf("%c", &t);
     int i=1;
     while(t!='\n' && i<=20){
         n[i-1]=t;
+        i = i+1;
     }
     return i;
 }
 
 
-void file_saver(struct object *head, struct object *tail, struct camera *cam,struct light *lght[], const char *file_name){
-
-    struct object *temp;
-    temp=head;
+inline void file_saver(struct object *head, const struct object *tail, const struct camera *cam,struct light *light[], const char *file_name){
+    const struct object *temp = head;
     //int cnt=get_fileName(name);
     ofstream myfile;
     myfile.open (file_name);
@@ -37,8 +37,7 @@ void file_saver(struct object *head, struct object *tail, struct camera *cam,str
                 myfile << temp->variables[0] << " ";
             }
 
-            struct materialType *mat = temp->mat;
-            if(mat!=NULL){
+            if(const struct materialType *mat = temp->mat; mat!=NULL){
 
                 myfile << mat->matEnable << " " << mat->smooth << " ";
                 myfile << mat->color[0] << " " << mat->color[1] << " " << mat->color[2] << " " << mat->color[3] << " ";
@@ -62,9 +61,8 @@ void file_saver(struct object *head, struct object *tail, struct camera *cam,str
 
     myfile << "\n#\n";
     // Lights
-    struct light *templ;
     for(int i=0;i<8;i++){
-        templ=lght[i];
+        const struct light *templ = light[i];
         myfile << templ->on << " " << templ->number << " ";
         myfile << templ->light_ambient[0] << " " << templ->light_ambient[1] << " " << templ->light_ambient[2] << " ";
         myfile << templ->light_diffuse[0] << " " << templ->light_diffuse[1] << " " << templ->light_diffuse[2] << " ";

@@ -1,12 +1,13 @@
+#pragma once
 
-GLfloat light_ambient[] = {0.2f, 0.2f, 0.2f, 0.0f};
- GLfloat light_diffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
- GLfloat light_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
- GLfloat light_position0[] = {5.0f, 5.0f, 5.0f, 1.0f};
- GLfloat light_position1[] = {-5.0f, -5.0f, -5.0f, 1.0f};
+inline GLfloat light_ambient[] = {0.2f, 0.2f, 0.2f, 0.0f};
+inline GLfloat light_diffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
+inline GLfloat light_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
+inline GLfloat light_position0[] = {5.0f, 5.0f, 5.0f, 1.0f};
+inline GLfloat light_position1[] = {-5.0f, -5.0f, -5.0f, 1.0f};
 
 // Lights for the scene
-void create_light(int l0, int l1){
+inline void create_light(int l0, int l1){
 
     if(l0){
             glDisable(GL_LIGHTING);

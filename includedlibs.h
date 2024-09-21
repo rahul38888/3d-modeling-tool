@@ -4,10 +4,10 @@
 #include "GL/glui.h"
 #include "GL/glut.h"
 #include <GL/gl.h>
-#include <stdlib.h>
-#include <math.h>
-#include <time.h>
-#include <string.h>
+#include <cstdlib>
+#include <cmath>
+#include <ctime>
+#include <cstring>
 
 //#include <cstring>
 #include <iostream>

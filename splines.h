@@ -1,8 +1,9 @@
-GLfloat ctrlpoints[4][3] = {
+#pragma once
+inline GLfloat ctrlpoints[4][3] = {
         { -4.0, 0.0, -4.0}, { 2.0, 0.0, -2.0},
         {-2.0, 0.0, 2.0}, {4.0, 0.0, 4.0}};
 
-GLfloat ctrlpoint[4][4][3] = {
+inline GLfloat ctrlpoint[4][4][3] = {
    {{-1.5, -1.5, 4.0}, {-0.5, -1.5, 2.0},
     {0.5, -1.5, -1.0}, {1.5, -1.5, 2.0}},
    {{-1.5, -0.5, 1.0}, {-0.5, -0.5, 3.0},
@@ -13,11 +14,9 @@ GLfloat ctrlpoint[4][4][3] = {
     {0.5, 1.5, 0.0}, {1.5, 1.5, -1.0}}
 };
 
-void draw_circle(GLfloat r,int div){
-    double latgap, prlat;
-
-    latgap=2*M_PI/(double)div;
-    prlat=0;
+inline void draw_circle(const GLfloat r, const int div){
+    const double latgap = 2 * M_PI / static_cast<double>(div);
+    double prlat = 0;
 
     glDisable(GL_LIGHTING);
     glBegin(GL_LINE_STRIP);
@@ -30,7 +29,7 @@ void draw_circle(GLfloat r,int div){
     glEnable(GL_LIGHTING);
 }
 
-void draw_nurbs(){
+inline void draw_nurbs(){
     glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 4, &ctrlpoints[0][0]);
     glEnable(GL_MAP1_VERTEX_3);
 
@@ -56,7 +55,7 @@ void draw_nurbs(){
    glFlush();
 }
 
-void bezierSolidCurve(){
+inline void bezierSolidCurve(){
 
     glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4,
            0, 1, 12, 4, &ctrlpoint[0][0][0]);
@@ -71,7 +70,7 @@ void bezierSolidCurve(){
 
 }
 
-void bezierWireCurve(){
+inline void bezierWireCurve(){
     int i, j;
 
     glMap2f(GL_MAP2_VERTEX_3, 0, 1, 3, 4,

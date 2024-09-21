@@ -1,6 +1,7 @@
 
 //Write UserInterface on screen
-void writeControles(){
+#pragma once
+inline void writeControles(){
     string text;
     glColor3f(0.0f,1.0f,0.0f);
     text="Draw Objects : ";

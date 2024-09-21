@@ -1,13 +1,12 @@
 //support function to get size of image
+#pragma once
 static unsigned int getint(FILE *fp)
 {
-  int c, c1, c2, c3;
-
-  // get 4 bytes
-  c = getc(fp);
-  c1 = getc(fp);
-  c2 = getc(fp);
-  c3 = getc(fp);
+    // get 4 bytes
+    const int c = getc(fp);
+    const int c1 = getc(fp);
+    const int c2 = getc(fp);
+    const int c3 = getc(fp);
 
   return static_cast<unsigned int>(c) +
     (static_cast<unsigned int>(c1) << 8) +
@@ -16,24 +15,18 @@ static unsigned int getint(FILE *fp)
 }
 
 //support function to get size of image
-static unsigned int getshort(FILE *fp)
+static unsigned int get_short(FILE *fp)
 {
-  int c, c1;
+    const int c = getc(fp);
+    const int c1 = getc(fp);
 
-  c = getc(fp);
-  c1 = getc(fp);
-
-  return ((unsigned int) c) + (((unsigned int) c1) << 8);
+    return static_cast<unsigned int>(c) + (static_cast<unsigned int>(c1) << 8);
 }
 
-inline int ImageLoad(char *filename, Image *image)
+inline int ImageLoad(const char *filename, Image *image)
 {
     FILE *file;
-    unsigned long size;
     unsigned long i;
-    unsigned short int planes;
-    unsigned short int bpp;
-    char temp;
     if ((file = fopen(filename, "rb"))==NULL) //load image
     {
         //printf("a");
@@ -42,21 +35,21 @@ inline int ImageLoad(char *filename, Image *image)
     fseek(file, 18, SEEK_CUR);
     image->sizeX = getint (file);   //get size of image
     image->sizeY = getint (file);   //get size of image
-    size = image->sizeX * image->sizeY * 3;
-    planes = getshort(file);
+    unsigned long size = image->sizeX * image->sizeY * 3;
+    unsigned short int planes = get_short(file);
     if (planes != 1)
     {
         printf("b");
         return 0;
     }
-    bpp = getshort(file);
+    unsigned short int bpp = get_short(file);
     if (bpp != 24)
     {
         printf("c");
         return 0;
     }
     fseek(file, 24, SEEK_CUR);
-    image->data = (char *) malloc(size);
+    image->data = static_cast<char *>(malloc(size));
     if (image->data == NULL)
     {
         printf("d");
@@ -70,7 +63,7 @@ inline int ImageLoad(char *filename, Image *image)
 
     for (i=0;i<size;i+=3)
     {
-        temp = image->data[i];
+        const char temp = image->data[i];
         image->data[i] = image->data[i+2];
         image->data[i+2] = temp;
     }
@@ -82,10 +75,8 @@ inline int ImageLoad(char *filename, Image *image)
 //function to load textures
 inline void LoadGLTextures(GLuint texture)
 {
+    auto *image = static_cast<Image *>(malloc(sizeof(Image)));
 
-    Image *image;
-
-    image = (Image *) malloc(sizeof(Image));
     ImageLoad("bricks.bmp",image);
 
     glGenTextures(1, &texture);

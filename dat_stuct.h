@@ -1,4 +1,5 @@
 //image data
+#pragma once
 typedef struct {
     unsigned long sizeX;
     unsigned long sizeY;

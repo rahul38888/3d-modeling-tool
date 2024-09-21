@@ -1,3 +1,4 @@
+#pragma once
 using namespace std;
 
 inline string nameType(int t){
@@ -25,25 +26,18 @@ inline string nameObject(int t){
     switch(t){
         case 1:
             return "CUBE";
-        break;
         case 2:
             return "SPHERE";
-        break;
         case 3:
             return "CONE";
-        break;
         case 4:
             return "TORUS";
-        break;
         case 5:
             return "CYLINDER";
-        break;
         case 6:
             return "PLANE";
-        break;
         case 7:
             return "TEAPOT";
-        break;
         default: return "";
     }
 }
@@ -62,7 +56,7 @@ inline void drawText(const char *text, int length, int x, int y){
     glLoadIdentity(); // reset it to identity matrix
 
     glPushMatrix(); // push current state of MODELVIEW matrix to stack
-    glLoadIdentity(); // reset it again. (may not be required, but it my convention)
+    glLoadIdentity(); // reset it again. (may not be required, but it is my convention)
     glRasterPos2i(x, y); // raster position in 2D
 
     for(int i=0; i<length; i++){
